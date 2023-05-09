@@ -202,6 +202,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Classes\Course.cs" />
+    <Compile Include="Classes\CourseRepository.cs" />
+    <Compile Include="Classes\Student.cs" />
+    <Compile Include="Classes\StudentRepository.cs" />
     <Compile Include="WService.xaml.cs">
       <DependentUpon>WService.xaml</DependentUpon>
     </Compile>

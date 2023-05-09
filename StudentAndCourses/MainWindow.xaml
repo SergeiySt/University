@@ -32,6 +32,6 @@
             </Grid>
         </GroupBox>
         <Button x:Name="buttonConnect" Content="Підключитися" HorizontalAlignment="Left" Margin="65,332,0,0" VerticalAlignment="Top" Width="124" Click="buttonConnect_Click"/>
-        <Button x:Name="buttonExit" Content="Вийти" HorizontalAlignment="Left" Margin="367,332,0,0" VerticalAlignment="Top" Width="131"/>
+        <Button x:Name="buttonExit" Content="Вийти" HorizontalAlignment="Left" Margin="367,332,0,0" VerticalAlignment="Top" Width="131" Click="buttonExit_Click"/>
     </Grid>
 </Window>
