@@ -5,9 +5,30 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StudentAndCourses"
         mc:Ignorable="d"
-        Title="WService" Height="450" Width="800">
+        Title="WService" Height="450" Width="800" Closing="Window_Closing">
     <Grid>
-        <Label Content="Сервіс" HorizontalAlignment="Left" Margin="53,27,0,0" VerticalAlignment="Top"/>
-
+        <ListView x:Name="listViwStudents" Margin="10,36,545,268" SelectionChanged="ListView_SelectionChanged"
+          ItemsSource="{Binding SelectedStudents}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="ID" DisplayMemberBinding="{Binding id_students}" Width="auto"/>
+                    <GridViewColumn Header="Ім'я" DisplayMemberBinding="{Binding SName}" Width="auto"/>
+                    <GridViewColumn Header="Прізвище" DisplayMemberBinding="{Binding SSurname}" Width="auto"/>
+                    <GridViewColumn Header="Вік" DisplayMemberBinding="{Binding SAge}" Width="auto"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Label Content="Студенти:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.4,-0.191"/>
+        <Label Content="Ім'я:" HorizontalAlignment="Left" Margin="293,36,0,0" VerticalAlignment="Top"/>
+        <Label Content="Прізвище:" HorizontalAlignment="Left" Margin="260,62,0,0" VerticalAlignment="Top"/>
+        <Label Content="Вік:" HorizontalAlignment="Left" Margin="298,88,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="textBoxNameStudent"    HorizontalAlignment="Left" Margin="331,40,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="textBoxSurNameStudent" HorizontalAlignment="Left" Margin="331,66,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="textBoxAgeStudent" HorizontalAlignment="Left" Margin="331,92,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="buttonAddStudent" Content="Додати" HorizontalAlignment="Left" Margin="467,39,0,0" VerticalAlignment="Top" Width="87" Click="buttonAddStudent_Click"/>
+        <Button x:Name="buttonUpdateStudent" Content="Змінити" HorizontalAlignment="Left" Margin="467,68,0,0" VerticalAlignment="Top" Width="87" Click="buttonUpdateStudent_Click"/>
+        <Button x:Name="buttonDeleteStudent" Content="Видалити" HorizontalAlignment="Left" Margin="467,99,0,0" VerticalAlignment="Top" Width="87" AutomationProperties.IsColumnHeader="True" Click="buttonDeleteStudent_Click"/>
+        <Button  x:Name="buttonTableStudent" Content="Таблиця студентів" HorizontalAlignment="Left" Margin="454,133,0,0" VerticalAlignment="Top" Width="112"/>
+        <Button x:Name="buttonExportDateStudent" Content="Експортувати" HorizontalAlignment="Left" Margin="454,164,0,0" VerticalAlignment="Top" Width="112" Click="buttonExportDateStudent_Click"/>
     </Grid>
 </Window>
