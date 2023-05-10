@@ -205,6 +205,8 @@
     <Compile Include="Classes\Course.cs" />
     <Compile Include="Classes\CourseRepository.cs" />
     <Compile Include="Classes\Student.cs" />
+    <Compile Include="Classes\StudentCourse.cs" />
+    <Compile Include="Classes\StudentCourseRepository.cs" />
     <Compile Include="Classes\StudentRepository.cs" />
     <Compile Include="WService.xaml.cs">
       <DependentUpon>WService.xaml</DependentUpon>

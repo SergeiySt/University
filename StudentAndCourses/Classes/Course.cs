@@ -11,5 +11,7 @@ namespace StudentAndCourses.Classes
         public int id_courses { get; set; }
         public string CName { get; set; }
         public string CTeacher { get; set; }
+
+        //public List<StudentCourse> Students { get; set; }
     }
 }

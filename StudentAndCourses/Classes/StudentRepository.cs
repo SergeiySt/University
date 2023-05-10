@@ -14,11 +14,18 @@ namespace StudentAndCourses.Classes
     internal class StudentRepository
     {
         private readonly IDbConnection dbConnection;
+        private SqlConnection connection;
 
-        public  StudentRepository(string con)
+        public StudentRepository(string con2)
         {
-            dbConnection = new SqlConnection(con);
+            dbConnection = new SqlConnection(con2);
         }
+
+        public StudentRepository(SqlConnection connection)
+        {
+            this.connection = connection;
+        }
+
         public List<Student> SelectedStudents()
         {
                 List<Student> students = dbConnection.Query<Student>("SELECT id_students, SName, SSurname, SAge FROM Students").ToList();

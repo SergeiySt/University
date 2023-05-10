@@ -12,5 +12,7 @@ namespace StudentAndCourses.Classes
         public string SName { get; set; }
         public string SSurname { get; set; }
         public int SAge { get; set; }
+
+        public List<StudentCourse> Courses { get; set; }
     }
 }
