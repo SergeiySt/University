@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StudentAndCourses"
         mc:Ignorable="d"
-        Title="WService" Height="450" Width="800" Closing="Window_Closing">
+        Title="WService" Height="663" Width="1204" Closing="Window_Closing">
     <Grid>
-        <ListView x:Name="listViwStudents" Margin="10,36,545,268" SelectionChanged="ListView_SelectionChanged"
-          ItemsSource="{Binding SelectedStudents}">
+        <ListView x:Name="listViwStudents" Margin="10,36,0,0" SelectionChanged="ListView_SelectionChanged"
+          ItemsSource="{Binding SelectedStudents}" Height="117" VerticalAlignment="Top" HorizontalAlignment="Left" Width="245">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="ID" DisplayMemberBinding="{Binding id_students}" Width="auto"/>
@@ -30,5 +30,39 @@
         <Button x:Name="buttonDeleteStudent" Content="Видалити" HorizontalAlignment="Left" Margin="467,99,0,0" VerticalAlignment="Top" Width="87" AutomationProperties.IsColumnHeader="True" Click="buttonDeleteStudent_Click"/>
         <Button  x:Name="buttonTableStudent" Content="Таблиця студентів" HorizontalAlignment="Left" Margin="454,133,0,0" VerticalAlignment="Top" Width="112"/>
         <Button x:Name="buttonExportDateStudent" Content="Експортувати" HorizontalAlignment="Left" Margin="454,164,0,0" VerticalAlignment="Top" Width="112" Click="buttonExportDateStudent_Click"/>
+        <Label Content="Курси:" HorizontalAlignment="Left" Margin="590,3,0,0" VerticalAlignment="Top"/>
+        <ListView x:Name="listViwCource" Margin="590,34,287,452" SelectionChanged="listViwCource_SelectionChanged" ItemsSource="{Binding SelectedCourse}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="ID" DisplayMemberBinding="{Binding id_courses}" Width="auto"/>
+                    <GridViewColumn Header="Назва курсу" DisplayMemberBinding="{Binding CName}" Width="auto"/>
+                    <GridViewColumn Header="Викладач" DisplayMemberBinding="{Binding CTeacher}" Width="auto"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Label  Content="Назва курсу:" HorizontalAlignment="Left" Margin="961,34,0,0" VerticalAlignment="Top"/>
+        <Label Content="Викладач:" HorizontalAlignment="Left" Margin="975,60,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="textBoxNameCourse" HorizontalAlignment="Left" Margin="1044,38,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="textBoxTeacher" HorizontalAlignment="Left" Margin="1044,64,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="buttonAddCourse" Content="Додати" HorizontalAlignment="Left" Margin="935,105,0,0" VerticalAlignment="Top" Width="72" Click="buttonAddCourse_Click"/>
+        <Button x:Name="buttonUpdateCourse" Content="Змінити" HorizontalAlignment="Left" Margin="1024,105,0,0" VerticalAlignment="Top" Width="72" Click="buttonUpdateCourse_Click"/>
+        <Button x:Name="buttonDeleteCourse" Content="Видалити" HorizontalAlignment="Left" Margin="1104,105,0,0" VerticalAlignment="Top" Width="78" Click="buttonDeleteCourse_Click"/>
+        <Button x:Name="buttonListCourse" Content="Таблиця курсів" HorizontalAlignment="Left" Margin="980,138,0,0" VerticalAlignment="Top" Width="100"/>
+        <ListView x:Name="listViwStudentCourseRepository" Margin="21,253,813,216" ItemsSource="{Binding SelectedSAC}" SelectionChanged="listViwStudentCourseRepository_SelectionChanged_1"  >
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Студент" DisplayMemberBinding="{Binding StudentName}" Width="auto"/>
+                    <GridViewColumn Header="id_students" DisplayMemberBinding="{Binding id_students}" Width="auto"/>
+                    <GridViewColumn Header="Курс" DisplayMemberBinding="{Binding CourseName}" Width="auto"/>
+                    <GridViewColumn Header="id_courses" DisplayMemberBinding="{Binding id_courses}" Width="auto"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button x:Name="buttonAddStudentCourse" Content="Звязати студнта з курсом" HorizontalAlignment="Left" Margin="21,220,0,0" VerticalAlignment="Top" Width="149" Click="ButtonAddStudentCourse"/>
+        <Button x:Name="buttonDeleteStudentCourse" Content="Видалити зв'язок" HorizontalAlignment="Left" Margin="186,220,0,0" VerticalAlignment="Top" Width="107" Click="buttonDeleteStudentCourse_Click"/>
+        <TextBox x:Name="t" HorizontalAlignment="Left" Margin="120,465,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="y" HorizontalAlignment="Left" Margin="120,500,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="student" HorizontalAlignment="Left" Margin="282,140,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="course" HorizontalAlignment="Left" Margin="961,177,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
     </Grid>
 </Window>
