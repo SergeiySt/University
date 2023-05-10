@@ -30,39 +30,19 @@ namespace StudentAndCourses
         private Course selectedCourse;
         private StudentCourse selectedStudentCourse;
 
-        
-
         private int selectedCourseId;
         private int selectedStudentId;
 
         private int selectedCourseId_2;
         private int selectedStudentId_2;
 
-        //private StudentRepository studentRepository;
-        //private CourseRepository courseRepository;
-        //private StudentCourseRepository studentCourseRepository;
-
         public WService()
         {
            InitializeComponent();
 
-            //var connection = new SqlConnection(conect);
-
             LoadStudent();
             LoadCourse();
             LoadStudentCourse();
-
-            //studentRepository = new StudentRepository(connection);
-            //listViwStudents.ItemsSource = studentRepository.SelectedStudents();
-            //DataContext = studentRepository;
-
-            //courseRepository = new CourseRepository(connection);
-            //listViwCource.ItemsSource = courseRepository.SelectedCourse();
-            //DataContext = courseRepository;
-
-            //studentCourseRepository = new StudentCourseRepository(connection);
-            //listViwStudentCourseRepository.ItemsSource = studentCourseRepository.SelectedSAC();
-            //DataContext = studentCourseRepository;
         }
 
         private void LoadStudent()
@@ -104,12 +84,30 @@ namespace StudentAndCourses
 
                 selectedStudentId = selectedStudent.id_students;
 
-                student.Text = selectedStudent.id_students.ToString();
             }
         }
 
+        
         private void buttonAddStudent_Click(object sender, RoutedEventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(textBoxNameStudent.Text))
+            {
+                System.Windows.MessageBox.Show("Введіть ім'я студента", "Примітка", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(textBoxSurNameStudent.Text))
+            {
+                System.Windows.MessageBox.Show("Введіть прізвище студента", "Примітка", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(textBoxAgeStudent.Text))
+            {
+                System.Windows.MessageBox.Show("Введіть вік студента", "Примітка", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
             var studentRepository = listViwStudents.DataContext as StudentRepository;
             if (studentRepository != null)
             {
@@ -120,6 +118,12 @@ namespace StudentAndCourses
 
         private void buttonUpdateStudent_Click(object sender, RoutedEventArgs e)
         {
+            if (listViwStudents.SelectedItems.Count == 0)
+            {
+                System.Windows.MessageBox.Show("Виберіть студента для оновлення записів.", "Увага", MessageBoxButton.OK, (MessageBoxImage)MessageBoxIcon.Warning);
+                return;
+            }
+
             var studentRepository = listViwStudents.DataContext as StudentRepository;
             if (studentRepository != null && selectedStudent != null)
             {
@@ -155,8 +159,6 @@ namespace StudentAndCourses
                 textBoxTeacher.Text = selectedCourse.CTeacher;
 
                 selectedCourseId = selectedCourse.id_courses;
-
-                course.Text = selectedCourse.id_courses.ToString();
             }
         }
 
@@ -205,6 +207,12 @@ namespace StudentAndCourses
 
         private void ButtonAddStudentCourse(object sender, RoutedEventArgs e)
         {
+            if (selectedStudentId == 0 && selectedCourseId == 0)
+            {
+                System.Windows.MessageBox.Show("Спочатку виберіть студента і курс перед призначенням", "Увага", MessageBoxButton.OK, (MessageBoxImage)MessageBoxIcon.Warning);
+                return;
+            }
+
             var studentCourseRepository = listViwStudentCourseRepository.DataContext as StudentCourseRepository;
             if (studentCourseRepository != null)
             {
@@ -215,6 +223,11 @@ namespace StudentAndCourses
 
         private void buttonDeleteStudentCourse_Click(object sender, RoutedEventArgs e)
         {
+            if (listViwStudentCourseRepository.SelectedItems.Count == 0)
+            {
+                System.Windows.MessageBox.Show("Спочатку виберіть студента якому призначено курс для видалення", "Увага", MessageBoxButton.OK, (MessageBoxImage)MessageBoxIcon.Warning);
+                return;
+            }
             var studentCourseRepository = listViwStudentCourseRepository.DataContext as StudentCourseRepository;
             if (studentCourseRepository != null && listViwStudentCourseRepository.SelectedItem != null)
             {
@@ -228,9 +241,6 @@ namespace StudentAndCourses
             selectedStudentCourse = (StudentCourse)listViwStudentCourseRepository.SelectedItem;
             if (selectedStudentCourse != null)
             {
-                t.Text = selectedStudentCourse.id_students.ToString();
-                y.Text = selectedStudentCourse.id_courses.ToString();
-
                 selectedStudentId_2 = selectedStudentCourse.id_students;
                 selectedCourseId_2 = selectedStudentCourse.id_courses;
             }

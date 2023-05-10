@@ -60,9 +60,9 @@
         </ListView>
         <Button x:Name="buttonAddStudentCourse" Content="Звязати студнта з курсом" HorizontalAlignment="Left" Margin="21,220,0,0" VerticalAlignment="Top" Width="149" Click="ButtonAddStudentCourse"/>
         <Button x:Name="buttonDeleteStudentCourse" Content="Видалити зв'язок" HorizontalAlignment="Left" Margin="186,220,0,0" VerticalAlignment="Top" Width="107" Click="buttonDeleteStudentCourse_Click"/>
-        <TextBox x:Name="t" HorizontalAlignment="Left" Margin="120,465,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
+        <!--<TextBox x:Name="t" HorizontalAlignment="Left" Margin="120,465,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="y" HorizontalAlignment="Left" Margin="120,500,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="student" HorizontalAlignment="Left" Margin="282,140,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="course" HorizontalAlignment="Left" Margin="961,177,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="course" HorizontalAlignment="Left" Margin="961,177,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>-->
     </Grid>
 </Window>
