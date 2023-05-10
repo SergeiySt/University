@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows;
 using Dapper;
+using System.Windows.Media.Imaging;
 
 namespace StudentAndCourses.Classes
 {
@@ -17,6 +18,7 @@ namespace StudentAndCourses.Classes
     {
         private readonly IDbConnection dbConnection;
 
+        //public StudentRepository() { }
         public StudentRepository(string con2)
         {
             dbConnection = new SqlConnection(con2);
@@ -44,6 +46,7 @@ namespace StudentAndCourses.Classes
 
             dbConnection.Execute("INSERT INTO Students (SName, SSurname, SAge) VALUES (@Name, @Surname, @Age)",
                                   new { Name = name, Surname = surname, Age = age });
+            System.Windows.MessageBox.Show("Студента успішно додано", "Успішно", MessageBoxButton.OK, (MessageBoxImage)MessageBoxIcon.Information);
         }
 
         public void UpdateStudent(int id, string name, string surname, int age)
@@ -72,6 +75,17 @@ namespace StudentAndCourses.Classes
                     System.Windows.MessageBox.Show("Студент не може бути видалений, тому що є пов'язані записи у списку призначених курсів", "Попередження", MessageBoxButton.OK, (MessageBoxImage)MessageBoxIcon.Warning);
                 }
             }
+        }
+
+        public List<Student> SearchStudents(string name, string surname)
+        {
+            string sqlQuery = "SELECT * FROM Students WHERE SName LIKE '%' + @Name + '%' AND SSurname LIKE '%' + @Surname + '%'";
+            List<Student> students = dbConnection.Query<Student>(sqlQuery, new { Name = name, Surname = surname }).ToList();
+            if (students.Count == 0)
+            {
+                System.Windows.MessageBox.Show("Студенти з таким ім'ям та прізвищем не знайдені", "Попередження", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            return students;
         }
     }
 }

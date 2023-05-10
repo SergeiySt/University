@@ -30,16 +30,19 @@ namespace StudentAndCourses
         private Course selectedCourse;
         private StudentCourse selectedStudentCourse;
 
+        private StudentRepository studentRepository;
+
         private int selectedCourseId;
         private int selectedStudentId;
 
         private int selectedCourseId_2;
         private int selectedStudentId_2;
 
+      
         public WService()
         {
            InitializeComponent();
-
+            studentRepository = new StudentRepository(conect);
             LoadStudent();
             LoadCourse();
             LoadStudentCourse();
@@ -114,6 +117,8 @@ namespace StudentAndCourses
                 studentRepository.AddStudent(textBoxNameStudent.Text, textBoxSurNameStudent.Text, int.Parse(textBoxAgeStudent.Text));
                 listViwStudents.ItemsSource = studentRepository.SelectedStudents();
             }
+
+            ClearTextBoxStudent();
         }
 
         private void buttonUpdateStudent_Click(object sender, RoutedEventArgs e)
@@ -130,6 +135,7 @@ namespace StudentAndCourses
                 studentRepository.UpdateStudent(selectedStudent.id_students, textBoxNameStudent.Text, textBoxSurNameStudent.Text, Convert.ToInt32(textBoxAgeStudent.Text));
                 listViwStudents.ItemsSource = studentRepository.SelectedStudents();
             }
+            ClearTextBoxStudent();
         }
 
         private void buttonDeleteStudent_Click(object sender, RoutedEventArgs e)
@@ -147,6 +153,7 @@ namespace StudentAndCourses
                 studentRepository.DeleteStudent(selectedStudent.id_students);
                 listViwStudents.ItemsSource = studentRepository.SelectedStudents();
             }
+            ClearTextBoxStudent();
         }
 
 
@@ -164,6 +171,18 @@ namespace StudentAndCourses
 
         private void buttonAddCourse_Click(object sender, RoutedEventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(textBoxNameCourse.Text))
+            {
+                System.Windows.MessageBox.Show("Введіть назву курса", "Примітка", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(textBoxTeacher.Text))
+            {
+                System.Windows.MessageBox.Show("Введіть прізвище та ініціали викладача", "Примітка", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
             var courseRepository = listViwCource.DataContext as CourseRepository;
             if (courseRepository != null)
             {
@@ -180,8 +199,21 @@ namespace StudentAndCourses
             textBoxTeacher.Text = "";
         }
 
+        private void ClearTextBoxStudent()
+        {
+            textBoxNameStudent.Text = "";
+            textBoxSurNameStudent.Text = "";
+            textBoxAgeStudent.Text = "";
+        }
+
         private void buttonUpdateCourse_Click(object sender, RoutedEventArgs e)
         {
+            if (listViwCource.SelectedItems.Count == 0)
+            {
+                System.Windows.MessageBox.Show("Виберіть курс для оновлення записів.", "Увага", MessageBoxButton.OK, (MessageBoxImage)MessageBoxIcon.Warning);
+                return;
+            }
+
             var courseRepository = listViwCource.DataContext as CourseRepository;
             if (courseRepository != null && selectedCourse != null)
             {
@@ -194,6 +226,12 @@ namespace StudentAndCourses
 
         private void buttonDeleteCourse_Click(object sender, RoutedEventArgs e)
         {
+            if (listViwCource.SelectedItems.Count == 0)
+            {
+                System.Windows.MessageBox.Show("Виберіть курс для видалення.", "Увага", MessageBoxButton.OK, (MessageBoxImage)MessageBoxIcon.Warning);
+                return;
+            }
+
             var courseRepository = listViwCource.DataContext as CourseRepository;
             if(courseRepository != null && listViwCource.SelectedItem != null)
             {
@@ -249,6 +287,27 @@ namespace StudentAndCourses
         private void buttonExportDateStudent_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+        private void buttonFindStudent_Click_1(object sender, RoutedEventArgs e)
+        {
+            string name = textBoxNameStudent.Text.Trim();
+            string surname = textBoxSurNameStudent.Text.Trim();
+           
+
+            if (!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(surname))
+            {
+                    List<Student> students = studentRepository.SearchStudents(name, surname);
+                    listViwStudents.ItemsSource = students;
+            }
+            else
+            {
+                System.Windows.MessageBox.Show("Введіть ім'я та прізвище для пошуку", "Попередження", MessageBoxButton.OK, (MessageBoxImage)MessageBoxIcon.Warning);
+            }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            LoadStudent();
         }
     }
 }
