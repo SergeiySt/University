@@ -10,7 +10,7 @@
     <Grid>
         <DataGrid x:Name="dataGridStudent" Margin="10,40,10,0" AutoGenerateColumns="False" IsReadOnly="True" Height="205" VerticalAlignment="Top">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Id" Width="auto" Binding = "{Binding id_students}" />
+                <DataGridTextColumn Header="Id" Width="0" Binding = "{Binding id_students}" />
                 <DataGridTextColumn Header ="Ім'я" Width="*" Binding = "{Binding SName}"/>
                 <DataGridTextColumn Header ="Прізвище" Width="*" Binding = "{Binding SSurname}"/>
                 <DataGridTextColumn Header ="Вік" Width="*" Binding = "{Binding SAge}"/>
@@ -18,7 +18,8 @@
         </DataGrid>
 
         <Label Content="Список усіх студентів" HorizontalAlignment="Left" Margin="10,3,0,0" VerticalAlignment="Top" FontSize="20" FontWeight="Bold" Foreground="#FF2569EF"/>
-        <Button x:Name="buttonExport" Content="Експортувати" Margin="668,259,10,0" Height="20" VerticalAlignment="Top"/>
+        <Button x:Name="buttonExport" Content="Експортувати у формат CSV" Margin="626,259,10,0" Height="20" VerticalAlignment="Top" Click="buttonExport_Click" Width="NaN"/>
+        <Button x:Name="buttonExportExcel" Content="Експортувати у формат Excel" HorizontalAlignment="Left" Margin="444,259,0,0" VerticalAlignment="Top" Click="buttonExportExcel_Click"/>
 
     </Grid>
 </Window>

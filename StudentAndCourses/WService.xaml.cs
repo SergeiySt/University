@@ -55,6 +55,11 @@ namespace StudentAndCourses
             LoadStudent();
             LoadCourse();
             LoadStudentCourse();
+
+
+    
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(listViwStudents.ItemsSource);
+            view.Filter = StudentFilter;
         }
 
         private void LoadStudent()
@@ -344,15 +349,21 @@ namespace StudentAndCourses
         }
         private void buttonViewAll(object sender, RoutedEventArgs e)
         {
-            var studentCourseRepository = new StudentCourseRepository(conect);
-            var studentCourses = studentCourseRepository.ListCoursesStudent(selectedNameStudent, selectedSurNameStudent);
-            listViewWriteCourceStudent.ItemsSource = studentCourses;
+
+            if (!string.IsNullOrEmpty(selectedNameStudent) && !string.IsNullOrEmpty(selectedSurNameStudent))
+            {
+                var studentCourseRepository = new StudentCourseRepository(conect);
+                var studentCourses = studentCourseRepository.ListCoursesStudent(selectedNameStudent, selectedSurNameStudent);
+                listViewWriteCourceStudent.ItemsSource = studentCourses;
+            }
+            else
+            {
+                System.Windows.MessageBox.Show("Виберіть спотачку студента", "Попередження", MessageBoxButton.OK, (MessageBoxImage)MessageBoxIcon.Warning);
+            }
+           
         }
 
-        private void textBoxSurNameStudent_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
+      
 
         private void textBlockStudent_TextInput(object sender, TextCompositionEventArgs e)
         {
@@ -361,9 +372,16 @@ namespace StudentAndCourses
 
         private void buttonCourseAll_Click(object sender, RoutedEventArgs e)
         {
-            var studentCourseRepository = new StudentCourseRepository(conect);
-            var studentCourses = studentCourseRepository.ListCourses(selectedCorseName);
-            listViewCourse_2.ItemsSource = studentCourses;
+            if (!string.IsNullOrEmpty(selectedCorseName))
+            {
+                var studentCourseRepository = new StudentCourseRepository(conect);
+                var studentCourses = studentCourseRepository.ListCourses(selectedCorseName);
+                listViewCourse_2.ItemsSource = studentCourses;
+            }
+            else
+            {
+                System.Windows.MessageBox.Show("Виберіть спотачку курс", "Попередження", MessageBoxButton.OK, (MessageBoxImage)MessageBoxIcon.Warning);
+            }
         }
 
         private void SortByName()
@@ -524,6 +542,59 @@ namespace StudentAndCourses
                     groupBox345.Visibility= Visibility.Visible;
                 }
             }
+        }
+
+
+        private bool StudentFilter(object item)
+        {
+
+            //    if (String.IsNullOrEmpty(textBoxNameStudent.Text))
+            //        return true;
+            //else
+            //    return (item as Student).SName.IndexOf(textBoxNameStudent.Text, StringComparison.OrdinalIgnoreCase) >= 0;
+
+            Student student = item as Student;
+
+            bool nameFilter = string.IsNullOrEmpty(textBoxNameStudent.Text) ||
+                student.SName.IndexOf(textBoxNameStudent.Text, StringComparison.OrdinalIgnoreCase) >= 0;
+
+            bool surnameFilter = string.IsNullOrEmpty(textBoxSurNameStudent.Text) ||
+                student.SSurname.IndexOf(textBoxSurNameStudent.Text, StringComparison.OrdinalIgnoreCase) >= 0;
+
+            bool ageFilter = string.IsNullOrEmpty(textBoxAgeStudent.Text) ||
+                student.SAge.ToString().IndexOf(textBoxAgeStudent.Text, StringComparison.OrdinalIgnoreCase) >= 0;
+
+            return nameFilter && surnameFilter && ageFilter;
+        }
+
+        private void textBoxNameStudent_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (checkBoxStudent.IsChecked == true)
+            {
+                CollectionViewSource.GetDefaultView(listViwStudents.ItemsSource).Refresh();
+            }
+        }
+
+        private void textBoxSurNameStudent_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (checkBoxStudent.IsChecked == true)
+            {
+                CollectionViewSource.GetDefaultView(listViwStudents.ItemsSource).Refresh();
+            }
+        }
+
+        private void textBoxAgeStudent_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (checkBoxStudent.IsChecked == true)
+            {
+                CollectionViewSource.GetDefaultView(listViwStudents.ItemsSource).Refresh();
+            }
+        }
+
+        private void buttonHelp_Click(object sender, RoutedEventArgs e)
+        {
+            WHelp wHelp = new WHelp();
+            wHelp.Show();
         }
     }
 }
