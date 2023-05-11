@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows;
+using System.Windows.Controls.Primitives;
 
 namespace StudentAndCourses.Classes
 {
@@ -54,6 +55,40 @@ namespace StudentAndCourses.Classes
                 dbConnection.Execute(sqlQuery, new { id_students = id_students2, id_courses = id_courses2 });
                 System.Windows.MessageBox.Show("Успішно видалено", "Успішно", MessageBoxButton.OK, (MessageBoxImage)MessageBoxIcon.Information);
             }
+        }
+
+        public List<Course> ListCoursesStudent(string name, string surname)
+        {
+            string query = "SELECT C.CName, C.CTeacher " +
+                   "FROM Students S " +
+                   "JOIN StudentCourse SC ON S.id_students = SC.id_students " +
+                   "JOIN Courses C ON SC.id_courses = C.id_courses " +
+                   "WHERE S.SName = @Name AND S.SSurname = @Surname";
+
+            var courses2 = dbConnection.Query<Course>(query, new { Name = name, Surname = surname }).ToList();
+
+            if (courses2.Count == 0)
+            {
+                System.Windows.MessageBox.Show($"У студента {name} {surname} немає записів на курси.", "Попередження", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            return courses2;
+        }
+
+        public List<Student> ListCourses(string name)
+        {
+            string query = "SELECT S.SName, S.SSurname " +
+                   "FROM Courses C " +
+                   "JOIN StudentCourse SC ON C.id_courses = SC.id_courses " +
+                   "JOIN Students S ON SC.id_students = S.id_students " +
+                   "WHERE C.CName = @Name ";
+
+            var courses2 = dbConnection.Query<Student>(query, new { Name = name}).ToList();
+
+            if (courses2.Count == 0)
+            {
+                System.Windows.MessageBox.Show($"У курса {name} немає записаних студентів.", "Попередження", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            return courses2;
         }
     }
 }

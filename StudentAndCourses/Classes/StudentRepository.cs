@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using System.Windows;
 using Dapper;
 using System.Windows.Media.Imaging;
+using System.Windows.Controls.Primitives;
 
 namespace StudentAndCourses.Classes
 {
@@ -18,7 +19,6 @@ namespace StudentAndCourses.Classes
     {
         private readonly IDbConnection dbConnection;
 
-        //public StudentRepository() { }
         public StudentRepository(string con2)
         {
             dbConnection = new SqlConnection(con2);
@@ -42,6 +42,7 @@ namespace StudentAndCourses.Classes
             if (IsStudentExist(name, surname))
             {
                 System.Windows.MessageBox.Show("Студент із таким ім'ям та прізвищем вже існує", "Увага", MessageBoxButton.OK, (MessageBoxImage)MessageBoxIcon.Warning);
+                return;
             }
 
             dbConnection.Execute("INSERT INTO Students (SName, SSurname, SAge) VALUES (@Name, @Surname, @Age)",

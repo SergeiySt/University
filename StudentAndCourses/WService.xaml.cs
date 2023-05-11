@@ -1,6 +1,8 @@
 ﻿using StudentAndCourses.Classes;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.IO;
@@ -16,6 +18,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+
 
 namespace StudentAndCourses
 {
@@ -38,7 +41,12 @@ namespace StudentAndCourses
         private int selectedCourseId_2;
         private int selectedStudentId_2;
 
-      
+        private string selectedNameStudent;
+        private string selectedSurNameStudent;
+
+        private string selectedCorseName;
+
+       
         public WService()
         {
            InitializeComponent();
@@ -46,6 +54,9 @@ namespace StudentAndCourses
             LoadStudent();
             LoadCourse();
             LoadStudentCourse();
+
+
+
         }
 
         private void LoadStudent()
@@ -87,8 +98,15 @@ namespace StudentAndCourses
 
                 selectedStudentId = selectedStudent.id_students;
 
+                selectedNameStudent = selectedStudent.SName;
+                selectedSurNameStudent = selectedStudent.SSurname;
+
+                textBlockStudent.Text = $"{selectedNameStudent} {selectedSurNameStudent}";
+
+                //((ObservableCollection<StudentCourse>)listViewWriteCourceStudent.ItemsSource).Clear();
             }
         }
+        
 
         
         private void buttonAddStudent_Click(object sender, RoutedEventArgs e)
@@ -166,6 +184,10 @@ namespace StudentAndCourses
                 textBoxTeacher.Text = selectedCourse.CTeacher;
 
                 selectedCourseId = selectedCourse.id_courses;
+
+                selectedCorseName = selectedCourse.CName;
+
+                textBlockCourse.Text = $"{selectedCorseName}";
             }
         }
 
@@ -308,6 +330,72 @@ namespace StudentAndCourses
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             LoadStudent();
+            ClearTextBoxStudent();
+        }
+
+        private void buttonTableStudent_Click(object sender, RoutedEventArgs e)
+        {
+            WTableStudent student = new WTableStudent();
+            student.Show();
+        }
+
+        private void buttonListCourse_Click(object sender, RoutedEventArgs e)
+        {
+            WTableCourses courses = new WTableCourses();
+            courses.Show();
+        }
+        private void buttonViewAll(object sender, RoutedEventArgs e)
+        {
+            var studentCourseRepository = new StudentCourseRepository(conect);
+            var studentCourses = studentCourseRepository.ListCoursesStudent(selectedNameStudent, selectedSurNameStudent);
+            listViewWriteCourceStudent.ItemsSource = studentCourses;
+        }
+
+        private void textBoxSurNameStudent_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void textBlockStudent_TextInput(object sender, TextCompositionEventArgs e)
+        {
+            //textBlockStudent.Text = $"{selectedNameStudent} {selectedSurNameStudent}";
+        }
+
+        private void buttonCourseAll_Click(object sender, RoutedEventArgs e)
+        {
+            var studentCourseRepository = new StudentCourseRepository(conect);
+            var studentCourses = studentCourseRepository.ListCourses(selectedCorseName);
+            listViewCourse_2.ItemsSource = studentCourses;
+        }
+
+        private void SortByName()
+        {
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(listViwStudents.ItemsSource);
+            view.SortDescriptions.Clear();
+            view.SortDescriptions.Add(new SortDescription("SName", ListSortDirection.Ascending));
+            view.Refresh();
+        }
+
+        private void SortByAge()
+        {
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(listViwStudents.ItemsSource);
+            view.SortDescriptions.Clear();
+            view.SortDescriptions.Add(new SortDescription("SAge", ListSortDirection.Ascending));
+            view.Refresh();
+        }
+        private void GridViewColumnHeader_Click(object sender, RoutedEventArgs e)
+        {
+            //SortByName();
+        }
+
+        private void GridViewColumnHeaderAge_Click(object sender, RoutedEventArgs e)
+        {
+            //SortByAge();
+        }
+
+        private void buttonSortVverxName_Click(object sender, RoutedEventArgs e)
+        {
+            SortByName();
         }
     }
 }
