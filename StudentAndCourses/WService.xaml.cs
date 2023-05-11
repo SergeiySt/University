@@ -18,6 +18,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
 
 namespace StudentAndCourses
@@ -54,9 +55,6 @@ namespace StudentAndCourses
             LoadStudent();
             LoadCourse();
             LoadStudentCourse();
-
-
-
         }
 
         private void LoadStudent()
@@ -376,6 +374,14 @@ namespace StudentAndCourses
             view.Refresh();
         }
 
+        private void SortByName2()
+        {
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(listViwStudents.ItemsSource);
+            view.SortDescriptions.Clear();
+            view.SortDescriptions.Add(new SortDescription("SName", ListSortDirection.Descending));
+            view.Refresh();
+        }
+
         private void SortByAge()
         {
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(listViwStudents.ItemsSource);
@@ -383,19 +389,141 @@ namespace StudentAndCourses
             view.SortDescriptions.Add(new SortDescription("SAge", ListSortDirection.Ascending));
             view.Refresh();
         }
-        private void GridViewColumnHeader_Click(object sender, RoutedEventArgs e)
+
+        private void SortByAge2()
         {
-            //SortByName();
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(listViwStudents.ItemsSource);
+            view.SortDescriptions.Clear();
+            view.SortDescriptions.Add(new SortDescription("SAge", ListSortDirection.Descending));
+            view.Refresh();
         }
 
-        private void GridViewColumnHeaderAge_Click(object sender, RoutedEventArgs e)
+        private void SortBySurName()
         {
-            //SortByAge();
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(listViwStudents.ItemsSource);
+            view.SortDescriptions.Clear();
+            view.SortDescriptions.Add(new SortDescription("SSurname", ListSortDirection.Ascending));
+            view.Refresh();
         }
 
+        private void SortBySurName2()
+        {
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(listViwStudents.ItemsSource);
+            view.SortDescriptions.Clear();
+            view.SortDescriptions.Add(new SortDescription("SSurname", ListSortDirection.Descending));
+            view.Refresh();
+        }
+
+        private void SortByCouseName()
+        {
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(listViwCource.ItemsSource);
+            view.SortDescriptions.Clear();
+            view.SortDescriptions.Add(new SortDescription("CName", ListSortDirection.Ascending));
+            view.Refresh();
+        }
+
+        private void SortByCouseName2()
+        {
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(listViwCource.ItemsSource);
+            view.SortDescriptions.Clear();
+            view.SortDescriptions.Add(new SortDescription("CName", ListSortDirection.Descending));
+            view.Refresh();
+        }
+
+        private void SortByCouseTeacher()
+        {
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(listViwCource.ItemsSource);
+            view.SortDescriptions.Clear();
+            view.SortDescriptions.Add(new SortDescription("CTeacher", ListSortDirection.Ascending));
+            view.Refresh();
+        }
+
+        private void SortByCouseTeacher2()
+        {
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(listViwCource.ItemsSource);
+            view.SortDescriptions.Clear();
+            view.SortDescriptions.Add(new SortDescription("CTeacher", ListSortDirection.Descending));
+            view.Refresh();
+        }
         private void buttonSortVverxName_Click(object sender, RoutedEventArgs e)
         {
             SortByName();
+        }
+
+        private void buttonSortVnuzName_Click(object sender, RoutedEventArgs e)
+        {
+            SortByName2();
+        }
+
+        private void buttonSortVverxAge_Click(object sender, RoutedEventArgs e)
+        {
+            SortByAge();
+        }
+
+        private void buttonSortVnuzAge_Click(object sender, RoutedEventArgs e)
+        {
+            SortByAge2();
+        }
+
+        private void buttonSortVverxSurName_Click(object sender, RoutedEventArgs e)
+        {
+            SortBySurName();
+        }
+
+        private void buttonSortVnuzSurName_Click(object sender, RoutedEventArgs e)
+        {
+            SortBySurName2();
+        }
+
+        private void listViwStudents_Loaded(object sender, RoutedEventArgs e)
+        {
+            //listViwStudents..Columns[0].Width = 100;
+            //((listViwStudents)sender).Columns[0].Width = 100;
+        }
+
+        private void buttonSortVverxNameCourse_Click(object sender, RoutedEventArgs e)
+        {
+            SortByCouseName();
+        }
+
+        private void buttonSortVnuzNameCourse_Click(object sender, RoutedEventArgs e)
+        {
+            SortByCouseName2();
+        }
+
+        private void buttonSortVverxTeacher_Click(object sender, RoutedEventArgs e)
+        {
+            SortByCouseTeacher();
+        }
+
+        private void buttonSortVnuzTeacher_Click(object sender, RoutedEventArgs e)
+        {
+            SortByCouseTeacher2();
+        }
+
+        private void RadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            if (groupBoxStudent23 != null && groupBox22 != null)
+            {
+                if (radioBatton_1.IsChecked == true)
+                {
+                    groupBox22.Visibility = Visibility.Visible;
+                    groupBoxStudent23.Visibility = Visibility.Collapsed;
+                    groupBox345.Visibility = Visibility.Collapsed;
+                }
+                else if (radioBatton_2.IsChecked == true)
+                {
+                    groupBox22.Visibility = Visibility.Collapsed;
+                    groupBoxStudent23.Visibility = Visibility.Visible;
+                    groupBox345.Visibility= Visibility.Collapsed;
+                }
+                else if (radioBatton_3.IsChecked == true)
+                {
+                    groupBox22.Visibility = Visibility.Collapsed;
+                    groupBoxStudent23.Visibility = Visibility.Collapsed;
+                    groupBox345.Visibility= Visibility.Visible;
+                }
+            }
         }
     }
 }
