@@ -94,3 +94,11 @@ D:\ДЗ_Шаг\Windows Forms C#\GitHub\University\StudentAndCourses\obj\Debug\WT
 D:\ДЗ_Шаг\Windows Forms C#\GitHub\University\StudentAndCourses\obj\Debug\WTableStudent.baml
 D:\ДЗ_Шаг\Windows Forms C#\GitHub\University\StudentAndCourses\obj\Debug\WTableCourses.g.cs
 D:\ДЗ_Шаг\Windows Forms C#\GitHub\University\StudentAndCourses\obj\Debug\WTableCourses.baml
+D:\ДЗ_Шаг\Windows Forms C#\GitHub\University\StudentAndCourses\obj\Debug\WHelp.g.cs
+D:\ДЗ_Шаг\Windows Forms C#\GitHub\University\StudentAndCourses\obj\Debug\WHelp.baml
+D:\ДЗ_Шаг\Windows Forms C#\GitHub\University\StudentAndCourses\bin\Debug\EPPlus.dll
+D:\ДЗ_Шаг\Windows Forms C#\GitHub\University\StudentAndCourses\bin\Debug\EPPlus.Interfaces.dll
+D:\ДЗ_Шаг\Windows Forms C#\GitHub\University\StudentAndCourses\bin\Debug\EPPlus.System.Drawing.dll
+D:\ДЗ_Шаг\Windows Forms C#\GitHub\University\StudentAndCourses\bin\Debug\Microsoft.IO.RecyclableMemoryStream.dll
+D:\ДЗ_Шаг\Windows Forms C#\GitHub\University\StudentAndCourses\bin\Debug\EPPlus.xml
+D:\ДЗ_Шаг\Windows Forms C#\GitHub\University\StudentAndCourses\bin\Debug\Microsoft.IO.RecyclableMemoryStream.xml
