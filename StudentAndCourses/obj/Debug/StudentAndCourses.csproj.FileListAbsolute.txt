@@ -90,3 +90,7 @@ D:\ДЗ_Шаг\Windows Forms C#\GitHub\University\StudentAndCourses\obj\Debug\St
 D:\ДЗ_Шаг\Windows Forms C#\GitHub\University\StudentAndCourses\obj\Debug\StudentAndCourses.pdb
 D:\ДЗ_Шаг\Windows Forms C#\GitHub\University\StudentAndCourses\obj\Debug\WService.g.cs
 D:\ДЗ_Шаг\Windows Forms C#\GitHub\University\StudentAndCourses\obj\Debug\WService.baml
+D:\ДЗ_Шаг\Windows Forms C#\GitHub\University\StudentAndCourses\obj\Debug\WTableStudent.g.cs
+D:\ДЗ_Шаг\Windows Forms C#\GitHub\University\StudentAndCourses\obj\Debug\WTableStudent.baml
+D:\ДЗ_Шаг\Windows Forms C#\GitHub\University\StudentAndCourses\obj\Debug\WTableCourses.g.cs
+D:\ДЗ_Шаг\Windows Forms C#\GitHub\University\StudentAndCourses\obj\Debug\WTableCourses.baml

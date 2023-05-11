@@ -3,66 +3,146 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
         xmlns:local="clr-namespace:StudentAndCourses"
         mc:Ignorable="d"
-        Title="WService" Height="663" Width="1204" Closing="Window_Closing">
+        Title="WService" Height="754" Width="1412" Closing="Window_Closing" WindowStartupLocation="CenterScreen">
     <Grid>
-        <ListView x:Name="listViwStudents" Margin="10,36,0,0" SelectionChanged="ListView_SelectionChanged"
-          ItemsSource="{Binding SelectedStudents}" Height="117" VerticalAlignment="Top" HorizontalAlignment="Left" Width="245">
+        <GroupBox Header="Студенти" Margin="10,10,939,388" Foreground="#FF2569EF" FontWeight="Bold" FontSize="16">
+            <Grid Margin="-2,0,3,0" Height="318">
+                <ListView x:Name="listViwStudents" SelectionChanged="ListView_SelectionChanged"
+                        ItemsSource="{Binding SelectedStudents}" Height="117" VerticalAlignment="Top" HorizontalAlignment="Center" Width="434" Margin="0,10,0,0" FontWeight="Normal" FontSize="14">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="ID" DisplayMemberBinding="{Binding id_students}" Width="0"/>
+                            <GridViewColumn Width="150">
+                                <GridViewColumnHeader Click="GridViewColumnHeader_Click">
+                                    <TextBlock Text="Ім'я" ToolTip="Сортировать по имени"/>
+                                </GridViewColumnHeader>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding SName}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Прізвище" DisplayMemberBinding="{Binding SSurname}" Width="200"/>
+                            <!--<GridViewColumn Header="Вік" DisplayMemberBinding="{Binding SAge}" Width="50"/>-->
+                            <GridViewColumn Width="50">
+                                <GridViewColumnHeader Click="GridViewColumnHeaderAge_Click">
+                                    <TextBlock Text="Вік" ToolTip="Сортировать по имени"/>
+                                </GridViewColumnHeader>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding SAge}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridView.ColumnHeaderContainerStyle>
+                                <Style TargetType="GridViewColumnHeader">
+                                    <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                                </Style>
+                            </GridView.ColumnHeaderContainerStyle>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <Label Content="Ім'я:" HorizontalAlignment="Left" Margin="42,138,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.485,2.738" FontSize="12" FontWeight="Normal"/>
+                <Label Content="Прізвище:" HorizontalAlignment="Left" Margin="9,161,0,0" VerticalAlignment="Top" FontSize="12" FontWeight="Normal"/>
+                <Label Content="Вік:" HorizontalAlignment="Left" Margin="47,184,0,0" VerticalAlignment="Top" FontWeight="Normal" FontSize="12"/>
+                <TextBox x:Name="textBoxNameStudent" Margin="80,142,8,0" TextWrapping="Wrap"  VerticalAlignment="Top" FontSize="12" FontWeight="Bold"/>
+                <TextBox x:Name="textBoxSurNameStudent" Margin="80,165,8,0" TextWrapping="Wrap"  VerticalAlignment="Top" FontSize="12" FontWeight="Bold" TextChanged="textBoxSurNameStudent_TextChanged"/>
+                <TextBox x:Name="textBoxAgeStudent" Margin="80,188,8,0" TextWrapping="Wrap"  VerticalAlignment="Top" FontSize="12" FontWeight="Bold"/>
+                <Button x:Name="buttonAddStudent" Content="Додати" HorizontalAlignment="Left" Margin="15,223,0,0" VerticalAlignment="Top" Width="87" Click="buttonAddStudent_Click" FontWeight="Normal" FontSize="12"/>
+                <Button x:Name="buttonUpdateStudent" Content="Змінити" HorizontalAlignment="Left" Margin="107,223,0,0" VerticalAlignment="Top" Width="87" Click="buttonUpdateStudent_Click" FontSize="12" FontWeight="Normal"/>
+                <Button x:Name="buttonDeleteStudent" Content="Видалити" HorizontalAlignment="Left" Margin="199,223,0,0" VerticalAlignment="Top" Width="86" AutomationProperties.IsColumnHeader="True" Click="buttonDeleteStudent_Click" FontSize="12" FontWeight="Normal"/>
+                <Button  x:Name="buttonTableStudent" Content="Таблиця студентів" HorizontalAlignment="Left" Margin="290,223,0,0" VerticalAlignment="Top" Width="112" Click="buttonTableStudent_Click" FontSize="12" FontWeight="Normal"/>
+                <Button x:Name="buttonFindStudent" Content="Пошук" HorizontalAlignment="Left" Margin="15,256,0,0" Width="70" Click="buttonFindStudent_Click_1" FontSize="12" FontWeight="Normal" Height="27" VerticalAlignment="Top"/>
+                <Button Content="Очистити результат пошуку" HorizontalAlignment="Left" Margin="104,256,0,0" Click="Button_Click" Width="169" FontSize="12" FontWeight="Normal" Height="27" VerticalAlignment="Top"/>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Курси" Margin="10,355,939,47" FontSize="16" FontWeight="Bold" Foreground="#FF2569EF">
+            <Grid>
+                <ListView x:Name="listViwCource" SelectionChanged="listViwCource_SelectionChanged" ItemsSource="{Binding SelectedCourse}" Height="145" VerticalAlignment="Top" HorizontalAlignment="Center" Width="434" Margin="0,10,0,0" FontSize="14" FontWeight="Normal">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="ID" DisplayMemberBinding="{Binding id_courses}" Width="0"/>
+                            <GridViewColumn Header="Назва курсу" DisplayMemberBinding="{Binding CName}" Width="200"/>
+                            <GridViewColumn Header="Викладач" DisplayMemberBinding="{Binding CTeacher}" Width="200"/>
+                            <GridView.ColumnHeaderContainerStyle>
+                                <Style TargetType="GridViewColumnHeader">
+                                    <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                                </Style>
+                            </GridView.ColumnHeaderContainerStyle>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <Label  Content="Назва курсу:" HorizontalAlignment="Left" Margin="10,160,0,0" VerticalAlignment="Top" FontSize="12" FontWeight="Normal"/>
+                <Label Content="Викладач:" HorizontalAlignment="Left" Margin="24,187,0,0" VerticalAlignment="Top" FontSize="12" FontWeight="Normal"/>
+                <TextBox x:Name="textBoxNameCourse" Margin="94,164,10,0" TextWrapping="Wrap"  VerticalAlignment="Top" FontSize="12"/>
+                <TextBox x:Name="textBoxTeacher" HorizontalAlignment="Left" Margin="94,191,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="347" FontSize="12"/>
+                <Button x:Name="buttonAddCourse" Content="Додати" HorizontalAlignment="Left" Margin="24,235,0,0" VerticalAlignment="Top" Width="72" Click="buttonAddCourse_Click" FontSize="12" FontWeight="Normal"/>
+                <Button x:Name="buttonUpdateCourse" Content="Змінити" HorizontalAlignment="Left" Margin="114,235,0,0" VerticalAlignment="Top" Width="72" Click="buttonUpdateCourse_Click" FontSize="12" FontWeight="Normal"/>
+                <Button x:Name="buttonDeleteCourse" Content="Видалити" HorizontalAlignment="Left" Margin="206,235,0,0" VerticalAlignment="Top" Width="78" Click="buttonDeleteCourse_Click" FontSize="12" FontWeight="Normal"/>
+                <Button x:Name="buttonListCourse" Content="Таблиця курсів" HorizontalAlignment="Left" Margin="308,235,0,0" VerticalAlignment="Top" Width="100" Click="buttonListCourse_Click" FontSize="12" FontWeight="Normal"/>
+
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Призначення курсів" Margin="488,14,328,388" FontSize="16" FontWeight="Bold" Foreground="#FF2569EF">
+            <Grid>
+                <ListView x:Name="listViwStudentCourseRepository" ItemsSource="{Binding SelectedSAC}" SelectionChanged="listViwStudentCourseRepository_SelectionChanged_1" Height="214" VerticalAlignment="Top" HorizontalAlignment="Center" Width="564" Margin="0,10,0,0" FontSize="14" FontWeight="Normal"  >
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Студент" DisplayMemberBinding="{Binding StudentName}" Width="250"/>
+                            <GridViewColumn Header="id_students" DisplayMemberBinding="{Binding id_students}" Width="0"/>
+                            <GridViewColumn Header="Курс" DisplayMemberBinding="{Binding CourseName}" Width="250"/>
+                            <GridViewColumn Header="id_courses" DisplayMemberBinding="{Binding id_courses}" Width="0"/>
+                            <GridView.ColumnHeaderContainerStyle>
+                                <Style TargetType="GridViewColumnHeader">
+                                    <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                                </Style>
+                            </GridView.ColumnHeaderContainerStyle>
+                        </GridView>
+                    </ListView.View>
+
+                </ListView>
+                <Button x:Name="buttonAddStudentCourse" Content="Призначити курс" HorizontalAlignment="Left" Margin="10,242,0,0" VerticalAlignment="Top" Width="149" Click="ButtonAddStudentCourse" FontSize="12" FontWeight="Normal"/>
+                <Button x:Name="buttonDeleteStudentCourse" Content="Видалити зв'язок" HorizontalAlignment="Left" Margin="467,245,0,0" VerticalAlignment="Top" Width="107" Click="buttonDeleteStudentCourse_Click" FontSize="12" FontWeight="Normal"/>
+
+            </Grid>
+        </GroupBox>
+        <ListView x:Name="listViewWriteCourceStudent" Margin="969,427,30,119" FontSize="14">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="ID" DisplayMemberBinding="{Binding id_students}" Width="auto"/>
-                    <GridViewColumn Header="Ім'я" DisplayMemberBinding="{Binding SName}" Width="auto"/>
-                    <GridViewColumn Header="Прізвище" DisplayMemberBinding="{Binding SSurname}" Width="auto"/>
-                    <GridViewColumn Header="Вік" DisplayMemberBinding="{Binding SAge}" Width="auto"/>
+                    <GridViewColumn Header="Назва курсу" DisplayMemberBinding="{Binding CName}" Width="200"/>
+                    <GridViewColumn Header="Викладач" DisplayMemberBinding="{Binding CTeacher}" Width="180"/>
+                    <GridView.ColumnHeaderContainerStyle>
+                        <Style TargetType="GridViewColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                        </Style>
+                    </GridView.ColumnHeaderContainerStyle>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Label Content="Студенти:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.4,-0.191"/>
-        <Label Content="Ім'я:" HorizontalAlignment="Left" Margin="293,36,0,0" VerticalAlignment="Top"/>
-        <Label Content="Прізвище:" HorizontalAlignment="Left" Margin="260,62,0,0" VerticalAlignment="Top"/>
-        <Label Content="Вік:" HorizontalAlignment="Left" Margin="298,88,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBoxNameStudent"    HorizontalAlignment="Left" Margin="331,40,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="textBoxSurNameStudent" HorizontalAlignment="Left" Margin="331,66,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="textBoxAgeStudent" HorizontalAlignment="Left" Margin="331,92,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="buttonAddStudent" Content="Додати" HorizontalAlignment="Left" Margin="467,39,0,0" VerticalAlignment="Top" Width="87" Click="buttonAddStudent_Click"/>
-        <Button x:Name="buttonUpdateStudent" Content="Змінити" HorizontalAlignment="Left" Margin="467,68,0,0" VerticalAlignment="Top" Width="87" Click="buttonUpdateStudent_Click"/>
-        <Button x:Name="buttonDeleteStudent" Content="Видалити" HorizontalAlignment="Left" Margin="467,99,0,0" VerticalAlignment="Top" Width="87" AutomationProperties.IsColumnHeader="True" Click="buttonDeleteStudent_Click"/>
-        <Button  x:Name="buttonTableStudent" Content="Таблиця студентів" HorizontalAlignment="Left" Margin="454,133,0,0" VerticalAlignment="Top" Width="112"/>
-        <Button x:Name="buttonExportDateStudent" Content="Експортувати" HorizontalAlignment="Left" Margin="454,164,0,0" VerticalAlignment="Top" Width="112" Click="buttonExportDateStudent_Click"/>
-        <Label Content="Курси:" HorizontalAlignment="Left" Margin="590,3,0,0" VerticalAlignment="Top"/>
-        <ListView x:Name="listViwCource" Margin="590,34,287,452" SelectionChanged="listViwCource_SelectionChanged" ItemsSource="{Binding SelectedCourse}">
+        <Label Content="Курси студента:" HorizontalAlignment="Left" Margin="932,383,0,0" VerticalAlignment="Top"/>
+        <TextBlock x:Name="textBlockStudent" HorizontalAlignment="Left" Margin="1046,387,0,0" TextWrapping="Wrap" Text="11" VerticalAlignment="Top" Width="208" Foreground="#FF2569EF" TextInput="textBlockStudent_TextInput"/>
+        <Button Content="Переглянути" HorizontalAlignment="Left" Margin="1270,383,0,0" VerticalAlignment="Top" Width="112" Click="buttonViewAll"/>
+        <ListView x:Name="listViewCourse_2" Margin="507,440,526,119" FontSize="14">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="ID" DisplayMemberBinding="{Binding id_courses}" Width="auto"/>
-                    <GridViewColumn Header="Назва курсу" DisplayMemberBinding="{Binding CName}" Width="auto"/>
-                    <GridViewColumn Header="Викладач" DisplayMemberBinding="{Binding CTeacher}" Width="auto"/>
+                    <GridViewColumn Header="Ім'я" DisplayMemberBinding="{Binding SName}" Width="150"/>
+                    <GridViewColumn Header="Прізвище" DisplayMemberBinding="{Binding SSurname}" Width="200"/>
+                    <GridView.ColumnHeaderContainerStyle>
+                        <Style TargetType="GridViewColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                        </Style>
+                    </GridView.ColumnHeaderContainerStyle>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Label  Content="Назва курсу:" HorizontalAlignment="Left" Margin="961,34,0,0" VerticalAlignment="Top"/>
-        <Label Content="Викладач:" HorizontalAlignment="Left" Margin="975,60,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBoxNameCourse" HorizontalAlignment="Left" Margin="1044,38,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="textBoxTeacher" HorizontalAlignment="Left" Margin="1044,64,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="buttonAddCourse" Content="Додати" HorizontalAlignment="Left" Margin="935,105,0,0" VerticalAlignment="Top" Width="72" Click="buttonAddCourse_Click"/>
-        <Button x:Name="buttonUpdateCourse" Content="Змінити" HorizontalAlignment="Left" Margin="1024,105,0,0" VerticalAlignment="Top" Width="72" Click="buttonUpdateCourse_Click"/>
-        <Button x:Name="buttonDeleteCourse" Content="Видалити" HorizontalAlignment="Left" Margin="1104,105,0,0" VerticalAlignment="Top" Width="78" Click="buttonDeleteCourse_Click"/>
-        <Button x:Name="buttonListCourse" Content="Таблиця курсів" HorizontalAlignment="Left" Margin="980,138,0,0" VerticalAlignment="Top" Width="100"/>
-        <ListView x:Name="listViwStudentCourseRepository" Margin="21,253,813,216" ItemsSource="{Binding SelectedSAC}" SelectionChanged="listViwStudentCourseRepository_SelectionChanged_1"  >
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Студент" DisplayMemberBinding="{Binding StudentName}" Width="auto"/>
-                    <GridViewColumn Header="id_students" DisplayMemberBinding="{Binding id_students}" Width="auto"/>
-                    <GridViewColumn Header="Курс" DisplayMemberBinding="{Binding CourseName}" Width="auto"/>
-                    <GridViewColumn Header="id_courses" DisplayMemberBinding="{Binding id_courses}" Width="auto"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
-        <Button x:Name="buttonAddStudentCourse" Content="Звязати студнта з курсом" HorizontalAlignment="Left" Margin="21,220,0,0" VerticalAlignment="Top" Width="149" Click="ButtonAddStudentCourse"/>
-        <Button x:Name="buttonDeleteStudentCourse" Content="Видалити зв'язок" HorizontalAlignment="Left" Margin="186,220,0,0" VerticalAlignment="Top" Width="107" Click="buttonDeleteStudentCourse_Click"/>
-        <Label Content="Пошук студента:" HorizontalAlignment="Left" Margin="10,164,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="textFindStudent" HorizontalAlignment="Left" Margin="115,168,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="buttonFindStudent" Content="Пошук" HorizontalAlignment="Left" Margin="356,128,0,0" VerticalAlignment="Top" Width="70" Click="buttonFindStudent_Click_1"/>
-        <Button Content="Очистити результат пошуку" HorizontalAlignment="Left" Margin="276,169,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+        <Label Content="Курс:" HorizontalAlignment="Left" Margin="507,409,0,0" VerticalAlignment="Top"/>
+        <TextBlock x:Name="textBlockCourse" HorizontalAlignment="Left" Margin="558,414,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Foreground="#FF2569EF" Width="199"/>
+        <Button x:Name="buttonCourseAll" Content="Переглянути" HorizontalAlignment="Left" Margin="776,412,0,0" VerticalAlignment="Top" Width="110" Click="buttonCourseAll_Click"/>
+        <Button x:Name="buttonSortVverxName" Content="▲" HorizontalAlignment="Left" Margin="139,45,0,0" VerticalAlignment="Top" Click="buttonSortVverxName_Click"/>
+        <Button x:Name="buttonSortVnuzName" Content="▼" HorizontalAlignment="Left" Margin="158,45,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>
