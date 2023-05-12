@@ -61,6 +61,7 @@ namespace StudentAndCourses
                     }
                 }
             }
+            System.Windows.MessageBox.Show("Дані успішно експортовано", "Успішно", MessageBoxButton.OK, (MessageBoxImage)MessageBoxIcon.Information);
         }
 
         private void buttonExportExcel_Click(object sender, RoutedEventArgs e)
@@ -91,6 +92,7 @@ namespace StudentAndCourses
                 package.SaveAs(stream);
                 stream.Close();
             }
+            System.Windows.MessageBox.Show("Дані успішно експортовано", "Успішно", MessageBoxButton.OK, (MessageBoxImage)MessageBoxIcon.Information);
         }
     }
 }

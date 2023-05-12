@@ -16,6 +16,7 @@
             </DataGrid.Columns>
         </DataGrid>
         <Label Content="Список усіх курсів" HorizontalAlignment="Left" Margin="10,3,0,0" VerticalAlignment="Top" FontSize="20" FontWeight="Bold" Foreground="#FF2569EF"/>
-        <Button x:Name="buttonExport" Content="Експортувати" Margin="694,271,10,0" VerticalAlignment="Top"/>
+        <Button x:Name="buttonExportCSV" Content="Експортувати у формат CSV" Margin="607,271,10,0" VerticalAlignment="Top" Width="NaN" Click="buttonExportCSV_Click"/>
+        <Button x:Name="buttonExportExcel" Content="Експортувати у формат Excel" HorizontalAlignment="Left" Margin="414,271,0,0" VerticalAlignment="Top" Width="174" Click="buttonExportExcel_Click"/>
     </Grid>
 </Window>
