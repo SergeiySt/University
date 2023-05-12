@@ -11,9 +11,11 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace StudentAndCourses
 {
@@ -23,75 +25,54 @@ namespace StudentAndCourses
     public partial class MainWindow : Window
     {
         private string connectionString;
+        private DispatcherTimer timer;
+
         public MainWindow()
         {
             InitializeComponent();
-            //connectionString = ConfigurationManager.ConnectionStrings["ConnectionDB"].ConnectionString;
-        }
-
-        private void buttonConnect_Click(object sender, RoutedEventArgs e)
-        {
-            //string serverName = textBoxNameServer.Text;
-            //string dataBase = textBoxDataBase.Text;
-            //string username = textBoxUser.Text;
-            //string password = textBoxPassword.Text;
-
-            //Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            //config.AppSettings.Settings["ServerAddress"].Value = serverName;
-            //config.AppSettings.Settings["DataBase"].Value = dataBase;
-            //if (!string.IsNullOrEmpty(username))
-            //{
-            //    config.AppSettings.Settings["User"].Value = username;
-            //}
-            //if (!string.IsNullOrEmpty(password))
-            //{
-            //    config.AppSettings.Settings["Password"].Value = password;
-            //}
-            //config.Save(ConfigurationSaveMode.Modified);
-
-
-            //string connectionString;
-            //if (!string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(password))
-            //{
-            //    connectionString = ConfigurationManager.ConnectionStrings["connectionString"].ConnectionString;
-            //    connectionString = connectionString.Replace("${ServerAddress}", serverName)
-            //                                         .Replace("${DataBase}", dataBase)
-            //                                         .Replace("${User}", username)
-            //                                         .Replace("${Password}", password);
-            //}
-            //else
-            //{
-            //    connectionString = ConfigurationManager.ConnectionStrings["connectionString_2"].ConnectionString;
-            //    connectionString = connectionString.Replace("${ServerAddress}", serverName)
-            //                                         .Replace("${DataBase}", dataBase);
-            //}
-
-            //// Проверяем подключение к базе данных
-            //using (SqlConnection connection = new SqlConnection(connectionString))
-            //{
-            //    try
-            //    {
-            //        connection.Open();
-            //        // Если подключение успешно, открываем вторую форму
-                    
-            //        WService wService = new WService();
-            //        wService.Show();
-                    
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        // Если произошла ошибка, выводим сообщение об ошибке
-            //        MessageBox.Show("Помилка підключення: " + ex.Message);
-            //    }
-            //}
-            //this.Close();
+            connectionString = ConfigurationManager.ConnectionStrings["ConnectionDB"].ConnectionString;
         }
 
         private void buttonExit_Click(object sender, RoutedEventArgs e)
         {
-            WService wService = new WService();
-            wService.Show();
-            this.Close();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    // Если подключение успешно, открываем вторую форму
+
+                    WService wService = new WService();
+                    wService.Show();
+                    this.Close();
+                }
+                catch (Exception ex)
+                {
+                    // Если произошла ошибка, выводим сообщение об ошибке
+                    MessageBox.Show("Помилка підключення: " + ex.Message);
+                    
+                    timer = new DispatcherTimer();
+                    timer.Interval = TimeSpan.FromSeconds(5);
+                    timer.Tick += Timer_Tick;
+                    timer.Start();
+                }
+            }
+        }
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            MessageBox.Show("Не вдалося підключитися до сервера", "Примітка", MessageBoxButton.OK, MessageBoxImage.Information);
+            timer.Stop();
+        }
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            Storyboard labelAnimation = FindResource("LabelAnimation") as Storyboard;
+            Storyboard imageAnimation = FindResource("ImageAnimation") as Storyboard;
+            Storyboard buttonAnimation = FindResource("ButtonAnimation") as Storyboard;
+
+            labelAnimation.Begin(label1);
+            labelAnimation.Begin(label2);
+            imageAnimation.Begin(pictureBox);
+            buttonAnimation.Begin(buttonExit);
         }
     }
 }

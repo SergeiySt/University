@@ -47,7 +47,7 @@ namespace StudentAndCourses
 
         private string selectedCorseName;
 
-       
+        private ICollectionView studentsView;
         public WService()
         {
            InitializeComponent();
@@ -57,9 +57,16 @@ namespace StudentAndCourses
             LoadStudentCourse();
 
 
-    
+
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(listViwStudents.ItemsSource);
             view.Filter = StudentFilter;
+
+            var studentRepository2 = new StudentRepository(conect);
+            studentsView = CollectionViewSource.GetDefaultView(studentRepository2.SelectedStudents());
+            studentsView.Filter = StudentFilter;
+            //listViwStudents.Items.Filter = StudentFilter;
+
+            //listViwStudents.ItemsSource = studentsView;
         }
 
         private void LoadStudent()
@@ -137,9 +144,13 @@ namespace StudentAndCourses
             {
                 studentRepository.AddStudent(textBoxNameStudent.Text, textBoxSurNameStudent.Text, int.Parse(textBoxAgeStudent.Text));
                 listViwStudents.ItemsSource = studentRepository.SelectedStudents();
-            }
+               
+               // listViwStudents.Items.Refresh();
 
+            }
+            
             ClearTextBoxStudent();
+          
         }
 
         private void buttonUpdateStudent_Click(object sender, RoutedEventArgs e)
@@ -155,6 +166,7 @@ namespace StudentAndCourses
             {
                 studentRepository.UpdateStudent(selectedStudent.id_students, textBoxNameStudent.Text, textBoxSurNameStudent.Text, Convert.ToInt32(textBoxAgeStudent.Text));
                 listViwStudents.ItemsSource = studentRepository.SelectedStudents();
+                //listViwStudents.Items.Refresh();
             }
             ClearTextBoxStudent();
         }
@@ -173,6 +185,7 @@ namespace StudentAndCourses
                 var selectedStudent = listViwStudents.SelectedItem as Student;
                 studentRepository.DeleteStudent(selectedStudent.id_students);
                 listViwStudents.ItemsSource = studentRepository.SelectedStudents();
+                //listViwStudents.Items.Refresh();
             }
             ClearTextBoxStudent();
         }
@@ -547,12 +560,6 @@ namespace StudentAndCourses
 
         private bool StudentFilter(object item)
         {
-
-            //    if (String.IsNullOrEmpty(textBoxNameStudent.Text))
-            //        return true;
-            //else
-            //    return (item as Student).SName.IndexOf(textBoxNameStudent.Text, StringComparison.OrdinalIgnoreCase) >= 0;
-
             Student student = item as Student;
 
             bool nameFilter = string.IsNullOrEmpty(textBoxNameStudent.Text) ||
@@ -571,7 +578,8 @@ namespace StudentAndCourses
         {
             if (checkBoxStudent.IsChecked == true)
             {
-                CollectionViewSource.GetDefaultView(listViwStudents.ItemsSource).Refresh();
+                //CollectionViewSource.GetDefaultView(listViwStudents.ItemsSource).Refresh();
+                studentsView.Refresh();
             }
         }
 
@@ -579,7 +587,8 @@ namespace StudentAndCourses
         {
             if (checkBoxStudent.IsChecked == true)
             {
-                CollectionViewSource.GetDefaultView(listViwStudents.ItemsSource).Refresh();
+                //CollectionViewSource.GetDefaultView(listViwStudents.ItemsSource).Refresh();
+                studentsView.Refresh();
             }
         }
 
@@ -587,7 +596,8 @@ namespace StudentAndCourses
         {
             if (checkBoxStudent.IsChecked == true)
             {
-                CollectionViewSource.GetDefaultView(listViwStudents.ItemsSource).Refresh();
+                //CollectionViewSource.GetDefaultView(listViwStudents.ItemsSource).Refresh();
+                studentsView.Refresh();
             }
         }
 
@@ -595,6 +605,11 @@ namespace StudentAndCourses
         {
             WHelp wHelp = new WHelp();
             wHelp.Show();
+        }
+
+        private void checkBoxStudent_Checked(object sender, RoutedEventArgs e)
+        {
+            //CollectionViewSource.GetDefaultView(listViwStudents.ItemsSource).Refresh();
         }
     }
 }

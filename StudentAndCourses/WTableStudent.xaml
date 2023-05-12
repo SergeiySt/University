@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:StudentAndCourses"
         mc:Ignorable="d"
         ResizeMode="NoResize"
-        Title="Таблиця студентів" Height="351" Width="800" WindowStartupLocation="CenterScreen">
+        Title="Таблиця студентів" Height="351" Width="800" WindowStartupLocation="CenterScreen" Icon="/Picture/mimetypes_office_spreadsheet_table_xls_381.ico">
     <Grid>
         <DataGrid x:Name="dataGridStudent" Margin="10,40,10,0" AutoGenerateColumns="False" IsReadOnly="True" Height="205" VerticalAlignment="Top">
             <DataGrid.Columns>
@@ -18,8 +18,8 @@
         </DataGrid>
 
         <Label Content="Список усіх студентів" HorizontalAlignment="Left" Margin="10,3,0,0" VerticalAlignment="Top" FontSize="20" FontWeight="Bold" Foreground="#FF2569EF"/>
-        <Button x:Name="buttonExport" Content="Експортувати у формат CSV" Margin="626,259,10,0" Height="20" VerticalAlignment="Top" Click="buttonExport_Click" Width="NaN"/>
-        <Button x:Name="buttonExportExcel" Content="Експортувати у формат Excel" HorizontalAlignment="Left" Margin="444,259,0,0" VerticalAlignment="Top" Click="buttonExportExcel_Click"/>
+        <Button x:Name="buttonExport" Content="Експортувати у формат CSV" Margin="603,259,10,0" Height="20" VerticalAlignment="Top" Click="buttonExport_Click" Width="NaN"/>
+        <Button x:Name="buttonExportExcel" Content="Експортувати у формат Excel" HorizontalAlignment="Left" Margin="400,259,0,0" VerticalAlignment="Top" Click="buttonExportExcel_Click"/>
 
     </Grid>
 </Window>

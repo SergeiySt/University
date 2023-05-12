@@ -289,12 +289,23 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Picture\mimetypes_office_spreadsheet_table_xls_381.ico" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Picture\information_info_1565.ico" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Picture\iStock-1383831579.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Picture\texteditor_note_notes_pencil_detext_9967.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Picture\Login_374444128.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Picture\smail.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
