@@ -1,0 +1,9 @@
+Перед запуском програми треба налаштувати підключення до БД
+у файлі App.config
+
+
+
+
+<connectionStrings>
+    <add name="ConnectionDB" connectionString="Data Source=DESKTOP-FU7KQHL; Initial Catalog=UniversityDB;" Trusted_Connection = "True"  Encrypt = "False" providerName="System.Data.SqlClient"/>
+</connectionStrings>
